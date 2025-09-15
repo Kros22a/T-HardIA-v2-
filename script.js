@@ -32,7 +32,6 @@ if (loginForm) {
       if (error) {
         alert("❌ Error al iniciar sesión: " + error.message);
       } else {
-        // Guardamos al usuario en localStorage
         localStorage.setItem("user", JSON.stringify(data.user));
         window.location.href = "dashboard.html";
       }
@@ -61,15 +60,13 @@ if (logoutBtn) {
 }
 
 // ==============================
-// MOSTRAR NOMBRE DE USUARIO EN DASHBOARD
+// MOSTRAR NOMBRE DE USUARIO
 // ==============================
 async function showUsername() {
   const userData = localStorage.getItem("user");
   if (!userData) return;
 
   const user = JSON.parse(userData);
-
-  // Extraer el nombre de usuario de los metadatos
   const username =
     user.user_metadata && user.user_metadata.username
       ? user.user_metadata.username
@@ -80,6 +77,17 @@ async function showUsername() {
     usernameDisplay.textContent = username;
   }
 }
-
 document.addEventListener("DOMContentLoaded", showUsername);
+
+// ==============================
+// MENÚ HAMBURGUESA (móvil)
+// ==============================
+const menuToggle = document.getElementById("menu-toggle");
+const navMenu = document.getElementById("nav-menu");
+
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+  });
+}
 
