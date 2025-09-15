@@ -3,46 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - T-HardIA</title>
+  <title>T-HardIA | Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">TH</div>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo T-HardIA">
+      <span>T-HardIA</span>
+    </div>
     <nav class="menu">
-      <a href="index.html">Inicio</a>
-      <a href="dashboard.html">Dashboard</a>
-      <span id="user-name"></span>
-      <button id="logoutBtn" class="btn">Cerrar sesión</button>
+      <ul>
+        <li><a href="dashboard.html">Inicio</a></li>
+        <li><a href="hardware.html">Hardware</a></li>
+        <li><a href="curiosidades.html">Curiosidades</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><span id="username-display"></span></li>
+        <li><button id="logout-btn">Cerrar Sesión</button></li>
+      </ul>
     </nav>
+    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
   <main>
-    <h1>Panel de Usuario</h1>
-    <p>Aquí podrás ver más información personalizada sobre T-HardIA.</p>
+    <section class="hero">
+      <h1>Hola, <span id="user-welcome"></span> 👋</h1>
+      <p>Explora el mundo de la <span class="highlight">inteligencia artificial</span> y el <span class="highlight">hardware</span>.</p>
+    </section>
   </main>
 
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="script.js"></script>
-  
-  <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68c0d1160c5887433f0bb303' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
-  
 </body>
 </html>
-
-
 
