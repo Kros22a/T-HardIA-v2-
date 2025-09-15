@@ -1,69 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>T-HardIA — Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-HardIA - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header class="navbar">
-    <div class="brand">
-      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
-      <div class="brand-text">T-HardIA</div>
-    </div>
-
-    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">☰</button>
-
-    <nav class="nav-links" id="nav-menu">
-      <ul>
-        <li><a href="dashboard.html" class="active">Inicio</a></li>
-        <li><a href="cpu.html">CPU</a></li>
-        <li><a href="gpu.html">GPU</a></li>
-        <li><a href="ram.html">RAM</a></li>
-        <li><a href="ssd.html">SSD</a></li>
-        <li><a href="curiosidades.html">Curiosidades</a></li>
-        <li id="menu-username" class="menu-username"></li>
-        <li><button id="logout-btn" class="btn ghost">Cerrar sesión</button></li>
-      </ul>
+<body class="dashboard-body">
+  <header>
+    <div class="logo">TH</div>
+    <nav class="desktop-menu">
+      <a href="dashboard.html">Inicio</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="curiosidades.html">Curiosidades</a>
+      <a href="contacto.html">Contacto</a>
+      <button id="logout-btn" class="logout-btn">Cerrar sesión</button>
+    </nav>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <nav class="mobile-menu" id="mobile-menu">
+      <a href="dashboard.html">Inicio</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="curiosidades.html">Curiosidades</a>
+      <a href="contacto.html">Contacto</a>
+      <button id="logout-btn-mobile" class="logout-btn">Cerrar sesión</button>
     </nav>
   </header>
 
-  <main class="page-container">
-    <section class="hero hero-user">
-      <div class="welcome-card">
-        <h1>Bienvenido, <span id="welcome-username" class="username-highlight">Usuario</span></h1>
-        <p>Explora las secciones o abre el asistente desde la esquina inferior.</p>
-        <div class="cta-row">
-          <a href="cpu.html" class="btn">Ver Procesadores</a>
-          <a href="gpu.html" class="btn ghost">Ver GPUs</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-grid">
-      <article class="info-card">
-        <h3>Guía para elegir CPU</h3>
-        <p>Si trabajas con edición de video y renderizado, prioriza núcleos y rendimiento multi-thread (AMD Ryzen 9 / Threadripper, Intel Xeon/ Core i9). Para gaming, frecuencia y latencias son claves (Intel Core i5/i7/i9 o Ryzen 5/7).</p>
-      </article>
-
-      <article class="info-card">
-        <h3>GPU: gaming vs compute</h3>
-        <p>Las GPUs para gaming (NVIDIA GeForce, AMD Radeon) se optimizan para rasterización, mientras que las GPUs para cómputo (NVIDIA RTX / A100 / H100) son diseñadas para entrenamiento e inferencia en IA (tensor cores, más VRAM, soporte ECC).</p>
-      </article>
-
-      <article class="info-card">
-        <h3>RAM y almacenamiento</h3>
-        <p>DDR5 es la nueva generación: mayor ancho de banda y eficiencia. SSD NVMe ofrece latencias y velocidades que distancian a los discos SATA tradicionalmente usados.</p>
-      </article>
-    </section>
+  <main>
+    <h1>Bienvenido, <span id="username"></span> 🚀</h1>
+    <p>Explora el conocimiento sobre hardware y tecnología en T-HardIA.</p>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 T-HardIA — Dashboard</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="script.js"></script>
 
   <script type="text/javascript">
@@ -85,6 +52,8 @@
   
 </body>
 </html>
+
+
 
 
 
