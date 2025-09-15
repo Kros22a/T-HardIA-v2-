@@ -1,94 +1,106 @@
-// ==============================
-// Conexión con Supabase
-// ==============================
+// ====== Config Supabase (se usa para read-only UI checks) ======
 const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co";
 const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
 
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// createClient is provided by the CDN script included in each HTML
+const APP_SUPABASE = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+window.APP_SUPABASE = APP_SUPABASE;
 
-// ==============================
-// LOGIN
-// ==============================
-const loginForm = document.getElementById("login-form");
-if (loginForm) {
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+// ====== Menu hamburguesa ======
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.getElementById("nav-menu");
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      navMenu.querySelector("ul").classList.toggle("active");
+    });
 
-    const email = document.getElementById("login-email").value.trim();
-    const password = document.getElementById("login-password").value.trim();
+    // cerrar menu si se pulsa fuera
+    document.addEventListener("click", (e) => {
+      const ul = navMenu.querySelector("ul");
+      if (!navMenu.contains(e.target) && ul.classList.contains("active")) {
+        ul.classList.remove("active");
+      }
+    });
+  }
 
-    if (!email || !password) {
-      alert("⚠️ Por favor ingresa correo y contraseña.");
-      return;
-    }
+  // Mostrar nombre de usuario si hay sesión (usando localStorage o Supabase)
+  updateUserDisplay();
+});
 
+// ====== Muestra usuario en menú y en dashboard ======
+async function updateUserDisplay() {
+  const userSpanMenu = document.getElementById("menu-username");
+  const welcomeSpan = document.getElementById("welcome-username");
+  const highlight = document.querySelector(".username-highlight");
+
+  // Primero intentar desde localStorage (guardamos al iniciar sesión)
+  let stored = localStorage.getItem("user");
+  let username = null;
+
+  if (stored) {
     try {
-      const { data, error } = await _supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const userObj = JSON.parse(stored);
+      username = (userObj?.user_metadata?.username) || userObj?.email || null;
+    } catch (e) {
+      console.warn("Error parseando user en localStorage:", e);
+      stored = null;
+    }
+  }
 
-      if (error) {
-        alert("❌ Error al iniciar sesión: " + error.message);
-      } else {
-        localStorage.setItem("user", JSON.stringify(data.user));
-        window.location.href = "dashboard.html";
+  // Si no hay stored, intentar obtener user desde Supabase SDK (si sesión activa en cookie)
+  if (!username) {
+    try {
+      const res = await APP_SUPABASE.auth.getUser();
+      if (res?.data?.user) {
+        username = (res.data.user.user_metadata?.username) || res.data.user.email;
+        // guardar en localStorage para uso inmediato
+        localStorage.setItem("user", JSON.stringify(res.data.user));
       }
     } catch (err) {
-      console.error("Error inesperado en login:", err);
-      alert("❌ Ocurrió un error inesperado.");
+      console.warn("No session activa o error al obtener user:", err);
     }
-  });
-}
+  }
 
-// ==============================
-// LOGOUT
-// ==============================
-const logoutBtn = document.getElementById("logout-btn");
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    try {
-      await _supabase.auth.signOut();
-      localStorage.removeItem("user");
-      window.location.href = "index.html";
-    } catch (err) {
-      console.error("Error al cerrar sesión:", err);
-      alert("❌ Ocurrió un error al cerrar sesión.");
+  if (userSpanMenu) {
+    userSpanMenu.textContent = username ? `👤 ${username}` : "";
+  }
+  if (welcomeSpan) {
+    welcomeSpan.textContent = username ? username : "Usuario";
+  }
+  // si hay highlight element, lo rellenamos y le damos estilo de fondo llamativo
+  if (highlight) {
+    highlight.textContent = username ? username : "Usuario";
+    if (username) {
+      highlight.style.background = "linear-gradient(90deg,#002b4d,#005784)";
+      highlight.style.padding = "6px 12px";
+      highlight.style.borderRadius = "999px";
+      highlight.style.color = "#eaffff";
+    } else {
+      highlight.style.background = "transparent";
     }
-  });
-}
-
-// ==============================
-// MOSTRAR NOMBRE DE USUARIO
-// ==============================
-async function showUsername() {
-  const userData = localStorage.getItem("user");
-  if (!userData) return;
-
-  const user = JSON.parse(userData);
-  const username =
-    user.user_metadata && user.user_metadata.username
-      ? user.user_metadata.username
-      : user.email;
-
-  const usernameDisplay = document.getElementById("username-display");
-  if (usernameDisplay) {
-    usernameDisplay.textContent = username;
   }
 }
-document.addEventListener("DOMContentLoaded", showUsername);
 
-// ==============================
-// MENÚ HAMBURGUESA (móvil)
-// ==============================
-const menuToggle = document.getElementById("menu-toggle");
-const navMenu = document.getElementById("nav-menu");
+// ====== Logout global (si hay botón) ======
+document.addEventListener("click", (e) => {
+  const target = e.target;
+  if (target && (target.id === "logout-btn" || target.id === "logout" || target.id === "logoutBtn")) {
+    e.preventDefault();
+    (async () => {
+      try {
+        await APP_SUPABASE.auth.signOut();
+      } catch (err) {
+        console.warn("Error al cerrar sesión (supabase):", err);
+      }
+      localStorage.removeItem("user");
+      // redirigir a login
+      window.location.href = "index.html";
+    })();
+  }
+});
 
-if (menuToggle && navMenu) {
-  menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
-  });
-}
 
 
