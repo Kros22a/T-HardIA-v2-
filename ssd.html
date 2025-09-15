@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — SSD</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
+      <div class="brand-text">T-HardIA</div>
+    </div>
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+    <nav class="nav-links" id="nav-menu">
+      <ul>
+        <li><a href="dashboard.html">Inicio</a></li>
+        <li><a href="cpu.html">CPU</a></li>
+        <li><a href="gpu.html">GPU</a></li>
+        <li><a href="ram.html">RAM</a></li>
+        <li><a href="ssd.html" class="active">SSD</a></li>
+        <li><a href="curiosidades.html">Curiosidades</a></li>
+        <li id="menu-username"></li>
+        <li><button id="logout-btn" class="btn ghost">Cerrar sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-container content">
+    <h1>Almacenamiento — SSD</h1>
+
+    <div class="two-col">
+      <div>
+        <h2>SATA vs NVMe</h2>
+        <p>Los SSD SATA se conectan por interfaz SATA (limite teórico ~600 MB/s). Los NVMe usan PCIe (x4) y alcanzan varios GB/s. Para sistemas operativos y aplicaciones modernas, NVMe mejora tiempos de carga drásticamente.</p>
+
+        <h3>Formas y rendimiento</h3>
+        <ul>
+          <li><strong>SATA SSDs:</strong> económicos, buen salto frente a HDD.</li>
+          <li><strong>NVMe M.2:</strong> compactos y muy rápidos (PCIe 3.0 vs PCIe 4.0 vs PCIe 5.0).</li>
+        </ul>
+      </div>
+
+      <aside class="side">
+        <img src="assets/ssd.png" alt="SSD" class="illustration" />
+        <h4>Marcas</h4>
+        <p>Samsung, Western Digital, Crucial, Kingston, Sabrent.</p>
+      </aside>
+    </div>
+
+    <h2>Recomendación</h2>
+    <p>Si el presupuesto lo permite, usa NVMe para OS y apps; reserva SATA para almacenamiento masivo económico.</p>
+  </main>
+
+  <footer class="site-footer"><p>© 2025 T-HardIA — SSD</p></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
