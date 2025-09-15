@@ -3,31 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA | Login</title>
+  <title>T-HardIA</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo T-HardIA">
-      <span>T-HardIA</span>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">T-HardIA</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="register.html">Registro</a></li>
+      <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+    </ul>
+    <button class="menu-toggle">☰</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Bienvenido a T-HardIA</h1>
+    <p>Tu asistente de hardware y curiosidades tecnológicas</p>
+  </section>
+
+  <!-- Cards -->
+  <section class="cards">
+    <div class="card">
+      <img src="assets/cpu.png" alt="CPU">
+      <h3>Procesadores</h3>
+      <p>Explora la evolución de los procesadores más potentes del mercado.</p>
     </div>
-  </header>
+    <div class="card">
+      <img src="assets/gpu.png" alt="GPU">
+      <h3>Tarjetas Gráficas</h3>
+      <p>Últimas tendencias y comparativas en tarjetas gráficas.</p>
+    </div>
+    <div class="card">
+      <img src="assets/ram.png" alt="RAM">
+      <h3>Memoria RAM</h3>
+      <p>Conoce las memorias más rápidas para optimizar tu PC.</p>
+    </div>
+  </section>
 
-  <main class="auth-container">
-    <h1>Bienvenido a <span class="highlight">T-HardIA</span></h1>
-    <p class="subtitle">Inicia sesión para continuar</p>
-    
-    <form id="login-form">
-      <input type="email" id="login-email" placeholder="Correo electrónico" required>
-      <input type="password" id="login-password" placeholder="Contraseña" required>
-      <button type="submit">Iniciar Sesión</button>
-    </form>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 T-HardIA - Desarrollado con ❤️</p>
+  </footer>
 
-    <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
-  </main>
-
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="script.js"></script>
 </body>
 </html>
