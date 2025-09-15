@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-HardIA | Curiosidades</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo T-HardIA">
+      <span>T-HardIA</span>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li><a href="dashboard.html">Inicio</a></li>
+        <li><a href="hardware.html">Hardware</a></li>
+        <li><a href="curiosidades.html" class="active">Curiosidades</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><span id="username-display"></span></li>
+        <li><button id="logout-btn">Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+    <div class="hamburger" id="hamburger">☰</div>
+  </header>
+
+  <main class="content">
+    <h1>Curiosidades de la IA</h1>
+    <p>Algunos datos fascinantes:</p>
+    <ul>
+      <li>La primera IA que jugó ajedrez ganó en 1951.</li>
+      <li>Hoy en día, IA genera música, arte y hasta código.</li>
+      <li>Más del 70% de los smartphones tienen funciones basadas en IA.</li>
+    </ul>
+  </main>
+
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
