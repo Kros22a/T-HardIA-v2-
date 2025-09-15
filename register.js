@@ -1,34 +1,32 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+// Conexión con Supabase
+const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co";
+const SUPABASE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
 
-const supabaseUrl = "https://gopqohhhzowohixbgtfp.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const form = document.getElementById("register-form");
+// ==== Registro ====
+const registerForm = document.getElementById("register-form");
+if (registerForm) {
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("register-username").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username },
+      },
+    });
 
-  const username = document.getElementById("username").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
+    if (error) {
+      alert("Error al registrarse: " + error.message);
+    } else {
+      alert("Registro exitoso. Ahora puedes iniciar sesión.");
+      window.location.href = "index.html";
+    }
   });
-
-  if (error) {
-    alert("Error en el registro: " + error.message);
-    return;
-  }
-
-  // Guardar username en la tabla profiles
-  await supabase.from("profiles").insert([{ id: data.user.id, username }]);
-
-  // Guardar en localStorage
-  localStorage.setItem("username", username);
-
-  alert("Registro exitoso 🎉 Bienvenido " + username);
-  window.location.href = "index.html";
-});
+}
