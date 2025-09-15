@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — CPUs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
+      <div class="brand-text">T-HardIA</div>
+    </div>
+
+    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">☰</button>
+
+    <nav class="nav-links" id="nav-menu">
+      <ul>
+        <li><a href="dashboard.html">Inicio</a></li>
+        <li><a href="cpu.html" class="active">CPU</a></li>
+        <li><a href="gpu.html">GPU</a></li>
+        <li><a href="ram.html">RAM</a></li>
+        <li><a href="ssd.html">SSD</a></li>
+        <li><a href="curiosidades.html">Curiosidades</a></li>
+        <li id="menu-username"></li>
+        <li><button id="logout-btn" class="btn ghost">Cerrar sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <section class="content">
+      <h1>Procesadores (CPU)</h1>
+
+      <div class="two-col">
+        <div>
+          <h2>Qué es y cómo funciona</h2>
+          <p>La CPU (Central Processing Unit) ejecuta instrucciones del sistema operativo y aplicaciones. Está compuesta por núcleos (cores), hilos (threads), caché y controladores de memoria. La eficiencia depende de la microarquitectura (p. ej. Zen 4, Raptor Lake).</p>
+
+          <h3>Especificaciones clave</h3>
+          <ul>
+            <li><strong>Núcleos / Hilos:</strong> Más núcleos ayudan en multitarea y cargas paralelas.</li>
+            <li><strong>Frecuencia (GHz):</strong> Mayor frecuencia mejora tareas single-thread.</li>
+            <li><strong>Cache:</strong> L1/L2/L3 afectan la latencia de acceso a datos.</li>
+            <li><strong>TDP:</strong> Consumo térmico y necesidad de refrigeración.</li>
+          </ul>
+        </div>
+
+        <aside class="side">
+          <img src="assets/cpu.png" alt="CPU" class="illustration" />
+          <h4>Marcas y líneas</h4>
+          <p><strong>Intel:</strong> Core i3/i5/i7/i9, Xeon para servidores. <br><strong>AMD:</strong> Ryzen 3/5/7/9, Threadripper para estaciones de trabajo.</p>
+        </aside>
+      </div>
+
+      <h2>Comparaciones (ejemplos)</h2>
+      <section class="compare">
+        <div class="compare-card">
+          <h4>Intel Core i9-13900K</h4>
+          <p>Gran rendimiento single-core, excelente para gaming. Similar en multi-core al AMD en cargas mixtas, pero suele consumir más energía a máximas frecuencias.</p>
+        </div>
+        <div class="compare-card">
+          <h4>AMD Ryzen 9 7950X</h4>
+          <p>Excelente rendimiento multi-thread. Muy competitivo en productividad y render. Suele ofrecer mejor eficiencia por núcleo en algunos escenarios.</p>
+        </div>
+      </section>
+
+      <h2>Recomendaciones</h2>
+      <p>Para gaming: prioriza frecuencia y latencias (i5/i7 o Ryzen 5/7). Para creación de contenido y render: más núcleos (Ryzen 9 / Threadripper, Intel i9 / Xeon).</p>
+
+      <h3>Curiosidad</h3>
+      <p>Los procesadores modernos integran instrucciones dedicadas (AVX, AVX2, AVX-512) que aceleran cálculos vectoriales usados en multimedia y ML.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>© 2025 T-HardIA — CPUs</p></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
