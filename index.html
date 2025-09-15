@@ -3,29 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA - Inicio</title>
+  <title>T-HardIA | Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">TH</div>
-    <nav class="menu">
-      <a href="index.html">Inicio</a>
-      <a href="dashboard.html">Dashboard</a>
-      <span id="user-name"></span>
-      <button id="logoutBtn" class="btn">Cerrar sesión</button>
-    </nav>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo T-HardIA">
+      <span>T-HardIA</span>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>Bienvenido a <span>T-HardIA</span></h1>
-      <p>Explora la plataforma de hardware con IA y aprende sobre la tecnología del futuro.</p>
-    </section>
+  <main class="auth-container">
+    <h1>Bienvenido a <span class="highlight">T-HardIA</span></h1>
+    <p class="subtitle">Inicia sesión para continuar</p>
+    
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="Correo electrónico" required>
+      <input type="password" id="login-password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
   </main>
 
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-
-
