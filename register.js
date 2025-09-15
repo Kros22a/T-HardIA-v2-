@@ -1,32 +1,47 @@
+// ==============================
 // Conexión con Supabase
+// ==============================
 const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co";
 const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
 
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ==== Registro ====
+// ==============================
+// REGISTRO
+// ==============================
 const registerForm = document.getElementById("register-form");
 if (registerForm) {
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const username = document.getElementById("register-username").value;
-    const email = document.getElementById("register-email").value;
-    const password = document.getElementById("register-password").value;
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { username },
-      },
-    });
+    const username = document.getElementById("register-username").value.trim();
+    const email = document.getElementById("register-email").value.trim();
+    const password = document.getElementById("register-password").value.trim();
 
-    if (error) {
-      alert("Error al registrarse: " + error.message);
-    } else {
-      alert("Registro exitoso. Ahora puedes iniciar sesión.");
-      window.location.href = "index.html";
+    if (!username || !email || !password) {
+      alert("⚠️ Todos los campos son obligatorios.");
+      return;
+    }
+
+    try {
+      const { data, error } = await _supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { username },
+        },
+      });
+
+      if (error) {
+        alert("❌ Error al registrarse: " + error.message);
+      } else {
+        alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+        window.location.href = "index.html";
+      }
+    } catch (err) {
+      console.error("Error inesperado en registro:", err);
+      alert("❌ Ocurrió un error inesperado.");
     }
   });
 }
