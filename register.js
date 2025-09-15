@@ -1,44 +1,32 @@
+// Configuración de Supabase
+const SUPABASE_URL = "https://TU_URL.supabase.co"; 
+const SUPABASE_KEY = "TU_ANON_PUBLIC";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ======= REGISTRO =======
 const registerForm = document.getElementById("register-form");
+
 if (registerForm) {
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("register-username").value.trim();
-    const email = document.getElementById("register-email").value.trim();
-    const password = document.getElementById("register-password").value.trim();
+    const username = document.getElementById("register-username").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
 
-    if (!username || !email || !password) {
-      alert("Todos los campos son obligatorios.");
-      return;
-    }
-
-    if (password.length < 8) {
-      alert("La contraseña debe tener al menos 8 caracteres.");
-      return;
-    }
-
-    try {
-      // register: enviamos username en user_metadata
-      const { data, error } = await APP_SUPABASE.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { username }
-        }
-      });
-
-      if (error) {
-        alert("Error en el registro: " + error.message);
-        return;
+    const { error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username }
       }
+    });
 
-      // instruct user to confirm email
-      alert("Registro exitoso ✅. Hemos enviado un correo de confirmación. Por favor revisa tu bandeja y confirma tu cuenta antes de iniciar sesión.");
-      // opcionalmente redirigir al login
+    if (error) {
+      alert("❌ Error al registrarse: " + error.message);
+    } else {
+      alert("✅ Registro exitoso. Revisa tu correo y confirma tu cuenta antes de iniciar sesión.");
       window.location.href = "index.html";
-    } catch (err) {
-      console.error("Registro error:", err);
-      alert("Ocurrió un error durante el registro.");
     }
   });
 }
