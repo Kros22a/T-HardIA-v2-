@@ -1,35 +1,39 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+// Usa la instancia global APP_SUPABASE (creada en script.js)
+const loginForm = document.getElementById("login-form");
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-const supabaseUrl = "https://gopqohhhzowohixbgtfp.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
-const supabase = createClient(supabaseUrl, supabaseKey);
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value.trim();
 
-const form = document.getElementById("login-form");
+    if (!email || !password) {
+      alert("Por favor ingresa correo y contraseña.");
+      return;
+    }
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    try {
+      const { data, error } = await APP_SUPABASE.auth.signInWithPassword({ email, password });
+      if (error) {
+        alert("Error iniciando sesión: " + error.message);
+        return;
+      }
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    alert("Error en el login: " + error.message);
-    return;
-  }
-
-  // Buscar el username en profiles
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", data.user.id)
-    .single();
-
-  if (profile) {
-    localStorage.setItem("username", profile.username);
-  }
-
-  alert("Bienvenido de nuevo 🎉 " + (profile?.username || ""));
-  window.location.href = "index.html";
-});
+      // data.user contiene user_metadata si existe
+      const user = data.user;
+      if (user) {
+        // guardamos en localStorage para mostrar nombre en UI
+        localStorage.setItem("user", JSON.stringify(user));
+        // actualizar display inmediatamente
+        await updateUserDisplay();
+        // redirigir
+        window.location.href = "dashboard.html";
+      } else {
+        alert("No se recibió información de usuario. Revisa tu cuenta o confirma tu correo.");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Ocurrió un error al intentar iniciar sesión.");
+    }
+  });
+}
