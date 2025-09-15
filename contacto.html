@@ -3,35 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA | Contacto</title>
+  <title>Contacto - T-HardIA</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo T-HardIA">
-      <span>T-HardIA</span>
-    </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="dashboard.html">Inicio</a></li>
-        <li><a href="hardware.html">Hardware</a></li>
-        <li><a href="curiosidades.html">Curiosidades</a></li>
-        <li><a href="contacto.html" class="active">Contacto</a></li>
-        <li><span id="username-display"></span></li>
-        <li><button id="logout-btn">Cerrar Sesión</button></li>
-      </ul>
+  <!-- ======= HEADER ======= -->
+  <header>
+    <div class="logo">T-HardIA</div>
+
+    <!-- Menú de escritorio -->
+    <nav class="desktop-menu">
+      <a href="dashboard.html">Inicio</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="curiosidades.html">Curiosidades</a>
+      <a href="contacto.html" class="active">Contacto</a>
+      <button id="logout-btn" class="logout-btn">Cerrar sesión</button>
     </nav>
+
+    <!-- Menú móvil -->
     <div class="hamburger" id="hamburger">☰</div>
+    <nav class="mobile-menu" id="mobile-menu">
+      <a href="dashboard.html">Inicio</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="curiosidades.html">Curiosidades</a>
+      <a href="contacto.html" class="active">Contacto</a>
+      <button id="logout-btn-mobile" class="logout-btn">Cerrar sesión</button>
+    </nav>
   </header>
 
-  <main class="content">
+  <!-- ======= MAIN ======= -->
+  <main class="fade-in">
     <h1>Contacto</h1>
-    <p>Sígueme en Instagram:</p>
-    <a href="https://www.instagram.com/tato.gp?igsh=ZmcyMTR5MndhcnFx" target="_blank" class="btn">Ir a Instagram</a>
-  </main>
+    <p class="intro">¿Tienes dudas, sugerencias o quieres colaborar con nosotros?  
+    Completa el formulario o contáctanos directamente en nuestras redes.</p>
 
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
-  <script src="script.js"></script>
+    <!-- FORMULARIO -->
+    <section class="card">
+      <h2>Formulario de Contacto</h2>
+      <form id="contact-form">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje..." required></textarea>
+
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="card">
+      <h2>Redes Sociales</h2>
+      <p>Síguenos y contáctanos directamente en Instagram:</p>
+      <a href="https://www.instagram.com/tato.gp?igsh=ZmcyMTR5MndhcnFx" target="_blank" class="btn instagram-btn">
+        📷 Ir al Instagram del creador
+      </a>
+    </section>
+  </main>
 </body>
 </html>
