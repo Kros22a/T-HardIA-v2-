@@ -6,49 +6,25 @@
   <title>T-HardIA - Inicio</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-theme">
-
-  <!-- Header -->
-  <header>
-    <nav class="navbar">
-      <div class="logo">TH</div>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Inicio</a></li>
-        <li><a href="hardware.html">Hardware</a></li>
-        <li><a href="curiosidades.html">Curiosidades</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li id="user-display"></li>
-      </ul>
+<body>
+  <header class="header">
+    <div class="logo">TH</div>
+    <nav class="menu">
+      <a href="index.html">Inicio</a>
+      <a href="dashboard.html">Dashboard</a>
+      <span id="user-name"></span>
+      <button id="logoutBtn" class="btn">Cerrar sesión</button>
     </nav>
   </header>
 
-  <!-- Hero Section -->
   <main>
     <section class="hero">
-      <h1 class="glow-text">Bienvenido a <span class="highlight">T-HardIA</span></h1>
-      <p>Explora el fascinante mundo del hardware con información, curiosidades y lo último en tecnología.</p>
-      <a href="hardware.html" class="btn neon-btn">Explorar</a>
-      <a href="https://www.instagram.com/tato.gp?igsh=ZmcyMTR5MndhcnFx" target="_blank" class="btn contact-btn">Contacto creador</a>
+      <h1>Bienvenido a <span>T-HardIA</span></h1>
+      <p>Explora la plataforma de hardware con IA y aprende sobre la tecnología del futuro.</p>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 T-HardIA - Todos los derechos reservados.</p>
-  </footer>
-
-  <!-- Mostrar username -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const userDisplay = document.getElementById("user-display");
-      const username = localStorage.getItem("username");
-
-      if (username) {
-        userDisplay.innerHTML = `👤 ${username}`;
-      } else {
-        userDisplay.innerHTML = '<a href="login.html">Iniciar sesión</a>';
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
 
