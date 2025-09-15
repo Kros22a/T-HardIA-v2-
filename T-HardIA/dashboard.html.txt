@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-HardIA - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <img src="assets/logo.png" alt="Logo T-HardIA" class="logo">
+    <nav>
+      <a href="dashboard.html">Inicio</a>
+      <a href="https://www.instagram.com/tato.gp" target="_blank">Contacto</a>
+      <button onclick="logout()">Cerrar Sesión</button>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h1>Bienvenido a T-HardIA</h1>
+    <p id="username"></p>
+
+    <section class="grid">
+      <div class="card">
+        <img src="assets/cpu.jpg" alt="CPU">
+        <h3>Procesadores</h3>
+        <p>Los CPUs modernos ofrecen múltiples núcleos y arquitecturas optimizadas para IA y gaming.</p>
+      </div>
+      <div class="card">
+        <img src="assets/gpu.jpg" alt="GPU">
+        <h3>Tarjetas Gráficas</h3>
+        <p>Las GPUs son claves en renderizado 3D y entrenamiento de modelos de inteligencia artificial.</p>
+      </div>
+      <div class="card">
+        <img src="assets/ram.jpg" alt="RAM">
+        <h3>Memoria RAM</h3>
+        <p>La RAM de alta velocidad mejora el rendimiento multitarea y la ejecución de aplicaciones pesadas.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
