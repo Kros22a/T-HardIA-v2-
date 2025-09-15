@@ -1,58 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA | Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo T-HardIA">
-      <span>T-HardIA</span>
+    <div class="brand">
+      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
+      <div class="brand-text">T-HardIA</div>
     </div>
-    <nav class="menu">
+
+    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">☰</button>
+
+    <nav class="nav-links" id="nav-menu">
       <ul>
-        <li><a href="dashboard.html">Inicio</a></li>
-        <li><a href="hardware.html">Hardware</a></li>
+        <li><a href="dashboard.html" class="active">Inicio</a></li>
+        <li><a href="cpu.html">CPU</a></li>
+        <li><a href="gpu.html">GPU</a></li>
+        <li><a href="ram.html">RAM</a></li>
+        <li><a href="ssd.html">SSD</a></li>
         <li><a href="curiosidades.html">Curiosidades</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><span id="username-display"></span></li>
-        <li><button id="logout-btn">Cerrar Sesión</button></li>
+        <li id="menu-username" class="menu-username"></li>
+        <li><button id="logout-btn" class="btn ghost">Cerrar sesión</button></li>
       </ul>
     </nav>
-    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>Hola, <span id="user-welcome"></span> 👋</h1>
-      <p>Explora el mundo de la <span class="highlight">inteligencia artificial</span> y el <span class="highlight">hardware</span>.</p>
+  <main class="page-container">
+    <section class="hero hero-user">
+      <div class="welcome-card">
+        <h1>Bienvenido, <span id="welcome-username" class="username-highlight">Usuario</span></h1>
+        <p>Explora las secciones o abre el asistente desde la esquina inferior.</p>
+        <div class="cta-row">
+          <a href="cpu.html" class="btn">Ver Procesadores</a>
+          <a href="gpu.html" class="btn ghost">Ver GPUs</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <article class="info-card">
+        <h3>Guía para elegir CPU</h3>
+        <p>Si trabajas con edición de video y renderizado, prioriza núcleos y rendimiento multi-thread (AMD Ryzen 9 / Threadripper, Intel Xeon/ Core i9). Para gaming, frecuencia y latencias son claves (Intel Core i5/i7/i9 o Ryzen 5/7).</p>
+      </article>
+
+      <article class="info-card">
+        <h3>GPU: gaming vs compute</h3>
+        <p>Las GPUs para gaming (NVIDIA GeForce, AMD Radeon) se optimizan para rasterización, mientras que las GPUs para cómputo (NVIDIA RTX / A100 / H100) son diseñadas para entrenamiento e inferencia en IA (tensor cores, más VRAM, soporte ECC).</p>
+      </article>
+
+      <article class="info-card">
+        <h3>RAM y almacenamiento</h3>
+        <p>DDR5 es la nueva generación: mayor ancho de banda y eficiencia. SSD NVMe ofrece latencias y velocidades que distancian a los discos SATA tradicionalmente usados.</p>
+      </article>
     </section>
   </main>
 
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
-  <script src="script.js"></script>
+  <footer class="site-footer">
+    <p>© 2025 T-HardIA — Dashboard</p>
+  </footer>
 
-  <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68c0d1160c5887433f0bb303' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
 
 
