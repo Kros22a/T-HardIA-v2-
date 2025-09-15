@@ -3,28 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA - Login</title>
+  <title>T-HardIA - Inicio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <img src="assets/logo.png" alt="Logo T-HardIA" class="logo">
-    <h1>T-HardIA</h1>
+  <!-- Menú principal -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">TH</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="hardware.html">Hardware</a></li>
+        <li><a href="curiosidades.html">Curiosidades</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li id="user-display"></li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="login-container">
-    <h2>Inicia sesión o regístrate</h2>
-    <input type="email" id="email" placeholder="Correo electrónico">
-    <input type="password" id="password" placeholder="Contraseña">
-    <button onclick="login()">Iniciar Sesión</button>
-    <button onclick="register()">Registrarse</button>
-    <p id="message"></p>
+  <!-- Contenido principal -->
+  <main>
+    <section class="hero">
+      <h1>Bienvenido a <span class="highlight">T-HardIA</span></h1>
+      <p>Explora el fascinante mundo del hardware con información, curiosidades y lo último en tecnología.</p>
+      <a href="hardware.html" class="btn">Explorar</a>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <h2>Últimas novedades</h2>
+        <p>Conoce las marcas más innovadoras en hardware como Intel, AMD, NVIDIA y más.</p>
+      </div>
+      <div class="feature">
+        <h2>Datos curiosos</h2>
+        <p>Descubre hechos interesantes que seguramente no sabías sobre los componentes que usas a diario.</p>
+      </div>
+      <div class="feature">
+        <h2>Comunidad</h2>
+        <p>Forma parte de una red de entusiastas y comparte tu experiencia.</p>
+      </div>
+    </section>
   </main>
 
-  <!-- SDK de Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 T-HardIA - Todos los derechos reservados.</p>
+  </footer>
 
-  <!-- Tu script -->
-  <script src="script.js"></script>
+  <!-- Script para mostrar el nombre del usuario -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const userDisplay = document.getElementById("user-display");
+      const username = localStorage.getItem("username");
+
+      if (username) {
+        userDisplay.innerHTML = `👤 ${username}`;
+      } else {
+        userDisplay.innerHTML = '<a href="login.html">Iniciar sesión</a>';
+      }
+    });
+  </script>
 </body>
 </html>
+
