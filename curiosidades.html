@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>T-HardIA — Curiosidades</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curiosidades - T-HardIA</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="navbar">
-    <div class="brand">
-      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
-      <div class="brand-text">T-HardIA</div>
-    </div>
-    <button id="menu-toggle" class="menu-toggle">☰</button>
-    <nav class="nav-links" id="nav-menu">
-      <ul>
-        <li><a href="dashboard.html">Inicio</a></li>
-        <li><a href="cpu.html">CPU</a></li>
-        <li><a href="gpu.html">GPU</a></li>
-        <li><a href="ram.html">RAM</a></li>
-        <li><a href="ssd.html">SSD</a></li>
-        <li><a href="curiosidades.html" class="active">Curiosidades</a></li>
-        <li id="menu-username"></li>
-        <li><button id="logout-btn" class="btn ghost">Cerrar sesión</button></li>
-      </ul>
+  <!-- ======= HEADER ======= -->
+  <header>
+    <div class="logo">T-HardIA</div>
+
+    <!-- Menú de escritorio -->
+    <nav class="desktop-menu">
+      <a href="dashboard.html">Inicio</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="curiosidades.html">Curiosidades</a>
+      <button id="logout-btn" class="logout-btn">Cerrar sesión</button>
+    </nav>
+
+    <!-- Menú móvil -->
+    <div class="hamburger" id="hamburger">☰</div>
+    <nav class="mobile-menu" id="mobile-menu">
+      <a href="dashboard.html">Inicio</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="curiosidades.html">Curiosidades</a>
+      <button id="logout-btn-mobile" class="logout-btn">Cerrar sesión</button>
     </nav>
   </header>
 
-  <main class="page-container content">
-    <h1>Curiosidades y hechos</h1>
+  <!-- ======= MAIN ======= -->
+  <main class="fade-in">
+    <h1>Curiosidades del Mundo del Hardware</h1>
+    <p class="intro">Descubre datos interesantes y poco conocidos sobre la evolución y el impacto de los componentes tecnológicos.</p>
 
-    <section>
-      <h2>Pequeñas grandes historias</h2>
-      <p>La cantidad de transistores por chip se duplicó de forma constante durante décadas (Ley de Moore) — hoy en día continuamos optimizando a través de empaques y tecnologías como chiplets.</p>
+    <section class="card">
+      <h2>💾 El Origen del Disco Duro</h2>
+      <p>El primer disco duro de IBM en 1956 pesaba más de una tonelada y apenas podía almacenar 5 MB de datos, ¡menos que una sola canción en MP3 de hoy!</p>
+      <img src="assets/hdd.jpg" alt="Disco duro antiguo">
     </section>
 
-    <section>
-      <h2>Hardware y IA</h2>
-      <p>Los diseños de hardware actuales incluyen instrucciones y bloques para acelerar IA (TPUs, tensor cores). Esto permite pasar de prototipos a modelos de inferencia en producción.</p>
+    <section class="card">
+      <h2>🖥️ La Ley de Moore</h2>
+      <p>En 1965, Gordon Moore predijo que el número de transistores en un chip se duplicaría aproximadamente cada dos años. Esta ley impulsó la innovación tecnológica por décadas.</p>
+      <img src="assets/moore.jpg" alt="Ley de Moore">
     </section>
 
-    <section>
-      <h2>Record y curiosidades</h2>
-      <ul>
-        <li>El primer HDD (IBM 1956) almacenaba 5MB en un gabinete enorme.</li>
-        <li>Hoy, un SSD NVMe de 2TB es más barato y más rápido que esas soluciones antiguas.</li>
-      </ul>
+    <section class="card">
+      <h2>🎮 Tarjetas Gráficas y Videojuegos</h2>
+      <p>Las primeras tarjetas gráficas se diseñaron para mostrar texto y gráficos básicos. Hoy, las GPUs no solo impulsan los videojuegos, también son la base de la inteligencia artificial y el machine learning.</p>
+      <img src="assets/gpu.jpg" alt="GPU moderna">
+    </section>
+
+    <section class="card">
+      <h2>⚡ Memoria RAM</h2>
+      <p>La primera memoria RAM (Random Access Memory) se desarrolló en 1968. Hoy existen módulos DDR5 que son miles de veces más rápidos que los primeros intentos.</p>
+      <img src="assets/ram.jpg" alt="Módulos de RAM">
+    </section>
+
+    <section class="card">
+      <h2>🌐 Internet y Hardware</h2>
+      <p>El primer servidor web de la historia se creó en 1990 en el CERN, y estaba montado en un computador NeXT de Steve Jobs. Una pieza de hardware que literalmente cambió el mundo.</p>
+      <img src="assets/nextpc.jpg" alt="Servidor NeXT">
     </section>
   </main>
-
-  <footer class="site-footer"><p>© 2025 T-HardIA — Curiosidades</p></footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="script.js"></script>
-
-  <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68c0d1160c5887433f0bb303' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
-  
 </body>
 </html>
+
