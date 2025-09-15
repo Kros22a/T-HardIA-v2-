@@ -1,6 +1,6 @@
 // Configuración de Supabase
-const SUPABASE_URL = "https://TU_URL.supabase.co"; 
-const SUPABASE_KEY = "TU_ANON_PUBLIC";
+const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co"; 
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ======= REGISTRO =======
