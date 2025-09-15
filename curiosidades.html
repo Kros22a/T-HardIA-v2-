@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — Curiosidades</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
+      <div class="brand-text">T-HardIA</div>
+    </div>
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+    <nav class="nav-links" id="nav-menu">
+      <ul>
+        <li><a href="dashboard.html">Inicio</a></li>
+        <li><a href="cpu.html">CPU</a></li>
+        <li><a href="gpu.html">GPU</a></li>
+        <li><a href="ram.html">RAM</a></li>
+        <li><a href="ssd.html">SSD</a></li>
+        <li><a href="curiosidades.html" class="active">Curiosidades</a></li>
+        <li id="menu-username"></li>
+        <li><button id="logout-btn" class="btn ghost">Cerrar sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-container content">
+    <h1>Curiosidades y hechos</h1>
+
+    <section>
+      <h2>Pequeñas grandes historias</h2>
+      <p>La cantidad de transistores por chip se duplicó de forma constante durante décadas (Ley de Moore) — hoy en día continuamos optimizando a través de empaques y tecnologías como chiplets.</p>
+    </section>
+
+    <section>
+      <h2>Hardware y IA</h2>
+      <p>Los diseños de hardware actuales incluyen instrucciones y bloques para acelerar IA (TPUs, tensor cores). Esto permite pasar de prototipos a modelos de inferencia en producción.</p>
+    </section>
+
+    <section>
+      <h2>Record y curiosidades</h2>
+      <ul>
+        <li>El primer HDD (IBM 1956) almacenaba 5MB en un gabinete enorme.</li>
+        <li>Hoy, un SSD NVMe de 2TB es más barato y más rápido que esas soluciones antiguas.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>© 2025 T-HardIA — Curiosidades</p></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
