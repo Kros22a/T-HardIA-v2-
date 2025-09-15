@@ -1,90 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>T-HardIA — Iniciar sesión</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-HardIA - Iniciar Sesión</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header class="navbar">
-    <div class="brand">
-      <img src="assets/logo.png" alt="T-HardIA Logo" class="brand-logo" />
-      <div class="brand-text">T-HardIA</div>
-    </div>
-
-    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">☰</button>
-
-    <nav class="nav-links" id="nav-menu">
-      <ul>
-        <li><a href="index.html" class="active">Inicio</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="cpu.html">CPU</a></li>
-        <li><a href="gpu.html">GPU</a></li>
-        <li><a href="ram.html">RAM</a></li>
-        <li><a href="ssd.html">SSD</a></li>
-        <li><a href="curiosidades.html">Curiosidades</a></li>
-        <li><a href="register.html">Registrarse</a></li>
-        <li id="menu-username" class="menu-username"></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="page-container">
-    <section class="auth-panel">
-      <div class="auth-card">
-        <h1 class="title">Inicia sesión</h1>
-        <p class="lead">Accede a tu cuenta para ver contenido personalizado y usar el asistente.</p>
-
-        <form id="login-form" class="form">
-          <label for="login-email">Correo</label>
-          <input id="login-email" type="email" placeholder="tu@ejemplo.com" required />
-
-          <label for="login-password">Contraseña</label>
-          <input id="login-password" type="password" placeholder="********" required />
-
-          <button type="submit" class="btn primary">Entrar</button>
-        </form>
-
-        <p class="small">¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
-      </div>
-
-      <aside class="auth-aside">
-        <h2>¿Por qué registrarte?</h2>
-        <ul>
-          <li>Accede a contenido personalizado.</li>
-          <li>Guarda favoritos e interacciones con el asistente.</li>
-          <li>Recibe recomendaciones según tu perfil.</li>
-        </ul>
-      </aside>
-    </section>
-
-    <section class="feature-strip">
-      <div class="feature">
-        <h3>Procesadores</h3>
-        <p>Comparativas, benchmarks y recomendaciones para distintos usos: gaming, productividad o servidores.</p>
-      </div>
-      <div class="feature">
-        <h3>Gráficas</h3>
-        <p>Conoce la diferencia entre GPUs gaming y GPUs para IA/compute.</p>
-      </div>
-      <div class="feature">
-        <h3>Almacenamiento</h3>
-        <p>Guía de SSDs NVMe vs SATA y cómo elegir según presupuesto y necesidad.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>© 2025 T-HardIA — Todo sobre hardware y IA</p>
-  </footer>
-
-  <!-- Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-
-  <!-- Scripts -->
+<body class="auth-body">
+  <div class="auth-container fade-in">
+    <img src="assets/logo.png" alt="Logo T-HardIA" class="logo-img">
+    <h2>Inicia sesión</h2>
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="Correo electrónico" required>
+      <input type="password" id="login-password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+  </div>
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="script.js"></script>
-  <script src="login.js"></script>
 </body>
 </html>
+
 
