@@ -1,15 +1,3 @@
-// ==============================
-// Conexión con Supabase
-// ==============================
-const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co";
-const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
-
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// ==============================
-// REGISTRO
-// ==============================
 const registerForm = document.getElementById("register-form");
 if (registerForm) {
   registerForm.addEventListener("submit", async (e) => {
@@ -20,28 +8,37 @@ if (registerForm) {
     const password = document.getElementById("register-password").value.trim();
 
     if (!username || !email || !password) {
-      alert("⚠️ Todos los campos son obligatorios.");
+      alert("Todos los campos son obligatorios.");
+      return;
+    }
+
+    if (password.length < 8) {
+      alert("La contraseña debe tener al menos 8 caracteres.");
       return;
     }
 
     try {
-      const { data, error } = await _supabase.auth.signUp({
+      // register: enviamos username en user_metadata
+      const { data, error } = await APP_SUPABASE.auth.signUp({
         email,
         password,
         options: {
-          data: { username },
-        },
+          data: { username }
+        }
       });
 
       if (error) {
-        alert("❌ Error al registrarse: " + error.message);
-      } else {
-        alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
-        window.location.href = "index.html";
+        alert("Error en el registro: " + error.message);
+        return;
       }
+
+      // instruct user to confirm email
+      alert("Registro exitoso ✅. Hemos enviado un correo de confirmación. Por favor revisa tu bandeja y confirma tu cuenta antes de iniciar sesión.");
+      // opcionalmente redirigir al login
+      window.location.href = "index.html";
     } catch (err) {
-      console.error("Error inesperado en registro:", err);
-      alert("❌ Ocurrió un error inesperado.");
+      console.error("Registro error:", err);
+      alert("Ocurrió un error durante el registro.");
     }
   });
 }
