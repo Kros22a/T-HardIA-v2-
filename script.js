@@ -38,7 +38,11 @@ if (logoutBtnMobile) logoutBtnMobile.addEventListener("click", logout);
 // ======= PROTEGER RUTAS =======
 async function protectRoute() {
   const { data } = await supabaseClient.auth.getUser();
-  if (!data.user && !window.location.pathname.endsWith("index.html") && !window.location.pathname.endsWith("register.html")) {
+  if (
+    !data.user && 
+    !window.location.pathname.endsWith("index.html") && 
+    !window.location.pathname.endsWith("register.html")
+  ) {
     window.location.href = "index.html";
   }
 }
@@ -63,6 +67,43 @@ const mobileMenu = document.getElementById("mobile-menu");
 if (hamburger && mobileMenu) {
   hamburger.addEventListener("click", () => {
     mobileMenu.classList.toggle("show");
+  });
+}
+
+// ======= FORMULARIO DE CONTACTO =======
+const contactForm = document.getElementById("contact-form");
+if (contactForm) {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const opinion = document.getElementById("opinion").value;
+    const contenido = document.getElementById("contenido").value;
+    const interes = document.getElementById("interes").value;
+    const satisfaccion = document.getElementById("satisfaccion").value;
+    const recomendacion = document.getElementById("recomendacion").value;
+
+    const { error } = await supabaseClient
+      .from("feedback")
+      .insert([
+        {
+          nombre,
+          email,
+          opinion,
+          contenido,
+          interes,
+          satisfaccion,
+          recomendacion
+        },
+      ]);
+
+    if (error) {
+      alert("❌ Error al enviar el formulario: " + error.message);
+    } else {
+      alert("✅ ¡Gracias por tu feedback!");
+      contactForm.reset();
+    }
   });
 }
 
