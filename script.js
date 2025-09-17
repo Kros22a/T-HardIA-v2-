@@ -80,7 +80,7 @@ if (contactForm) {
     const email = document.getElementById("email").value;
     const opinion = document.getElementById("opinion").value;
     const contenido = document.getElementById("contenido").value;
-    const interes = document.getElementById("interes").value;
+    const interes = document.getElementById("hardware").value;
     const satisfaccion = document.getElementById("satisfaccion").value;
     const recomendacion = document.getElementById("recomendacion").value;
 
@@ -92,7 +92,7 @@ if (contactForm) {
           email,
           opinion,
           contenido,
-          interes,
+          hardware,
           satisfaccion,
           recomendacion
         },
@@ -106,6 +106,7 @@ if (contactForm) {
     }
   });
 }
+
 
 
 
