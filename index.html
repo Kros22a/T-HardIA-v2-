@@ -3,22 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA - Iniciar Sesión</title>
+  <title>Iniciar Sesión - T-HARDIA</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-body">
-  <div class="auth-container fade-in">
-    <img src="assets/logo.png" alt="Logo T-HardIA" class="logo-img">
-    <h2>Inicia sesión</h2>
+<body>
+  <main class="container">
+    <h1>Iniciar Sesión</h1>
     <form id="login-form">
       <input type="email" id="login-email" placeholder="Correo electrónico" required>
       <input type="password" id="login-password" placeholder="Contraseña" required>
-      <button type="submit">Ingresar</button>
+      <button type="submit">Entrar</button>
     </form>
     <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
-  </div>
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
-  <script src="script.js"></script>
+  </main>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
+      authDomain: "t-hardia.firebaseapp.com",
+      projectId: "t-hardia",
+      storageBucket: "t-hardia.firebasestorage.app",
+      messagingSenderId: "462770565143",
+      appId: "1:462770565143:web:d6de124051899b9c742c52",
+      measurementId: "G-YQ9D6T371T"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.firebaseApp = app;
+    window.firebaseAuth = auth;
+    window.firebaseDB = db;
+  </script>
+
+  <script src="script.js" type="module"></script>
 </body>
 </html>
 
