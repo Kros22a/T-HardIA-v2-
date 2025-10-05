@@ -1,7 +1,47 @@
-// Configuración de Supabase
-const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co"; 
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
+    authDomain: "t-hardia.firebaseapp.com",
+    projectId: "t-hardia",
+    storageBucket: "t-hardia.firebasestorage.app",
+    messagingSenderId: "462770565143",
+    appId: "1:462770565143:web:d6de124051899b9c742c52",
+    measurementId: "G-YQ9D6T371T"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  console.log("🔥 Firebase conectado:", app.name);
+
+  const form = document.getElementById("contact-form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      nombre: form.nombre.value,
+      email: form.email.value,
+      opinion: form.opinion.value,
+      contenido: form.contenido.value,
+      hardware: form.hardware.value,
+      satisfaccion: form.satisfaccion.value,
+      recomendacion: form.recomendacion.value,
+      fecha: new Date().toISOString()
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, "contactos"), data);
+      alert("✅ ¡Formulario enviado con éxito! ID: " + docRef.id);
+      form.reset();
+    } catch (err) {
+      console.error("Error al guardar:", err);
+      alert("❌ Error al enviar formulario. Revisa la consola.");
+    }
+  });
+</script>
 
 // ======= LOGIN =======
 const loginForm = document.getElementById("login-form");
@@ -106,6 +146,7 @@ if (contactForm) {
     }
   });
 }
+
 
 
 
