@@ -5,8 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto - T-HardIA</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
-  <script defer src="script.js"></script>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    // Configuración Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
+      authDomain: "t-hardia.firebaseapp.com",
+      projectId: "t-hardia",
+      storageBucket: "t-hardia.firebasestorage.app",
+      messagingSenderId: "462770565143",
+      appId: "1:462770565143:web:d6de124051899b9c742c52",
+      measurementId: "G-YQ9D6T371T"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Guardamos referencia global para script.js
+    window.firebaseApp = app;
+    window.firebaseDB = db;
+  </script>
+
+  <script defer type="module" src="script.js"></script>
 </head>
 <body>
   <!-- ======= HEADER ======= -->
@@ -40,150 +64,39 @@
     Completa el formulario o contáctanos directamente en nuestras redes.</p>
 
     <!-- FORMULARIO -->
-   <section class="card">
-  <h2>📩 Formulario de Encuesta</h2>
-  <p>Tu opinión nos ayuda a crecer. Responde estas preguntas:</p>
-
-  <form id="contact-form">
-    <label for="nombre">Nombre</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
-
-    <label for="email">Correo electrónico</label>
-    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
-
-    <label for="opinion">¿Qué opinas del diseño visual de nuestra página?</label>
-    <textarea id="opinion" name="opinion" rows="4" placeholder="Escribe tu opinión..." required></textarea>
-
-    <label for="contenido">¿Qué tipo de contenido te gustaría ver más en nuestra web?</label>
-    <textarea id="contenido" name="contenido" rows="4" placeholder="Ejemplo: más comparativas de procesadores..." required></textarea>
-
-    <label for="hardware">¿Qué componente de hardware te interesa más aprender a fondo?</label>
-    <textarea id="hardware" name="hardware" rows="4" placeholder="Ejemplo: Tarjetas gráficas" required></textarea>
-
-    <label for="satisfaccion">En una escala del 1 al 5, ¿qué tan feliz estás con nuestro servicio?</label>
-    <select id="satisfaccion" name="satisfaccion" required>
-      <option value="">Selecciona...</option>
-      <option value="1">1 - Muy insatisfecho</option>
-      <option value="2">2 - Insatisfecho</option>
-      <option value="3">3 - Neutral</option>
-      <option value="4">4 - Feliz</option>
-      <option value="5">5 - Muy feliz</option>
-    </select>
-
-    <label for="recomendacion">¿Recomendarías nuestra página a tus amigos?</label>
-    <select id="recomendacion" name="recomendacion" required>
-      <option value="">Selecciona...</option>
-      <option value="si">Sí</option>
-      <option value="talvez">Tal vez</option>
-      <option value="no">No</option>
-    </select>
-
-    <button type="submit" class="btn">Enviar</button>
-  </form>
-</section>
-
-<style>
-/* ==== Formulario Estético ==== */
-.card {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #0d1117;
-  border-radius: 15px;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.6);
-  color: #f0f6fc;
-  font-family: "Segoe UI", sans-serif;
-}
-
-.card h2 {
-  text-align: center;
-  color: #58a6ff;
-  margin-bottom: 10px;
-}
-
-.card p {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #c9d1d9;
-}
-
-#contact-form label {
-  display: block;
-  margin-top: 15px;
-  font-size: 15px;
-  color: #c9d1d9;
-}
-
-#contact-form input,
-#contact-form textarea,
-#contact-form select {
-  width: 100%;
-  padding: 10px 12px;
-  margin-top: 6px;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  background: #161b22;
-  color: #f0f6fc;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-#contact-form input:focus,
-#contact-form textarea:focus,
-#contact-form select:focus {
-  border-color: #58a6ff;
-  outline: none;
-  box-shadow: 0px 0px 8px #58a6ff55;
-}
-
-#contact-form textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-#contact-form button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin-top: 20px;
-  background: #238636;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#contact-form button:hover {
-  background: #2ea043;
-}
-
-@media (max-width: 600px) {
-  .card {
-    margin: 20px;
-    padding: 20px;
-  }
-}
-</style>
-
-
-    <!-- INSTAGRAM -->
     <section class="card">
-      <h2>Redes Sociales</h2>
-      <p>Síguenos y contáctanos directamente en Instagram:</p>
-      <a href="https://www.instagram.com/tato.gp?igsh=ZmcyMTR5MndhcnFx" target="_blank" class="btn instagram-btn">
-        📷 Ir al Instagram del creador
-      </a>
-    </section>
-  </main>
-  
-  <!-- Supabase SDK -->
-<script src="https://unpkg.com/@supabase/supabase-js"></script>
+      <h2>📩 Formulario de Encuesta</h2>
+      <p>Tu opinión nos ayuda a crecer. Responde estas preguntas:</p>
 
-<!-- Tu script de conexión -->
-<script src="script.js"></script>
+      <form id="contact-form">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
 
-</body>
-</html>
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+
+        <label for="opinion">¿Qué opinas del diseño visual de nuestra página?</label>
+        <textarea id="opinion" name="opinion" rows="4" placeholder="Escribe tu opinión..." required></textarea>
+
+        <label for="contenido">¿Qué tipo de contenido te gustaría ver más en nuestra web?</label>
+        <textarea id="contenido" name="contenido" rows="4" placeholder="Ejemplo: más comparativas de procesadores..." required></textarea>
+
+        <label for="hardware">¿Qué componente de hardware te interesa más aprender a fondo?</label>
+        <textarea id="hardware" name="hardware" rows="4" placeholder="Ejemplo: Tarjetas gráficas" required></textarea>
+
+        <label for="satisfaccion">En una escala del 1 al 5, ¿qué tan feliz estás con nuestro servicio?</label>
+        <select id="satisfaccion" name="satisfaccion" required>
+          <option value="">Selecciona...</option>
+          <option value="1">1 - Muy insatisfecho</option>
+          <option value="2">2 - Insatisfecho</option>
+          <option value="3">3 - Neutral</option>
+          <option value="4">4 - Feliz</option>
+          <option value="5">5 - Muy feliz</option>
+        </select>
+
+        <label for="recomendacion">¿Recomendarías nuestra página a tus amigos?</label>
+        <select id="recomendacion" name="recomendacion" required>
+          <option value="">Selecciona...</option>
+          <option value="si">Sí</option>
+          <option value="talvez">Tal vez</option>
+          <option value="no">N
