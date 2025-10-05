@@ -1,8 +1,30 @@
-// Configuración de Supabase
-const SUPABASE_URL = "https://gopqohhhzowohixbgtfp.supabase.co"; 
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvcHFvaGhoem93b2hpeGJndGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5MDgzNDIsImV4cCI6MjA3MzQ4NDM0Mn0.8lutM3tR0KkUA3dN5UcDkf84XoDRIUJFnYwz0O7v42E";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+<!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
+    const firebaseConfig = {
+      apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
+      authDomain: "t-hardia.firebaseapp.com",
+      projectId: "t-hardia",
+      storageBucket: "t-hardia.firebasestorage.app",
+      messagingSenderId: "462770565143",
+      appId: "1:462770565143:web:d6de124051899b9c742c52",
+      measurementId: "G-YQ9D6T371T"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Exponemos las variables globalmente para script.js
+    window.firebaseApp = app;
+    window.firebaseAuth = auth;
+    window.firebaseDB = db;
+  </script>
+
+  <script src="script.js" type="module"></script>
 // ======= REGISTRO =======
 const registerForm = document.getElementById("register-form");
 
