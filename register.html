@@ -3,23 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA - Registro</title>
+  <title>Registro - T-HARDIA</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-body">
-  <div class="auth-container fade-in">
-    <img src="assets/logo.png" alt="Logo T-HardIA" class="logo-img">
-    <h2>Crea tu cuenta</h2>
+<body>
+  <main class="container">
+    <h1>Crear cuenta</h1>
     <form id="register-form">
       <input type="text" id="register-username" placeholder="Nombre de usuario" required>
       <input type="email" id="register-email" placeholder="Correo electrónico" required>
       <input type="password" id="register-password" placeholder="Contraseña" required>
       <button type="submit">Registrarse</button>
     </form>
-    <p>Ya tienes cuenta? <a href="index.html">Inicia sesión</a></p>
-    <p class="note">⚠️ Revisa tu correo y confirma tu cuenta antes de iniciar sesión.</p>
-  </div>
-  <script src="https://unpkg.com/@supabase/supabase-js"></script>
-  <script src="register.js"></script>
+    <p>¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a></p>
+  </main>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
+      authDomain: "t-hardia.firebaseapp.com",
+      projectId: "t-hardia",
+      storageBucket: "t-hardia.firebasestorage.app",
+      messagingSenderId: "462770565143",
+      appId: "1:462770565143:web:d6de124051899b9c742c52",
+      measurementId: "G-YQ9D6T371T"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.firebaseApp = app;
+    window.firebaseAuth = auth;
+    window.firebaseDB = db;
+  </script>
+
+  <script src="script.js" type="module"></script>
 </body>
 </html>
