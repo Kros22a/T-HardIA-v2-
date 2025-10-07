@@ -1,73 +1,62 @@
-<script type="module">
-  // === IMPORTS DE FIREBASE ===
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { 
-    getAuth, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword, 
-    signOut, 
-    onAuthStateChanged 
-  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    setDoc, 
-    doc, 
-    getDoc 
-  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut 
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-  // === CONFIGURACIÓN DE FIREBASE ===
-  const firebaseConfig = {
-    apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
-    authDomain: "t-hardia.firebaseapp.com",
-    projectId: "t-hardia",
-    storageBucket: "t-hardia.firebasestorage.app",
-    messagingSenderId: "462770565143",
-    appId: "1:462770565143:web:d6de124051899b9c742c52",
-    measurementId: "G-YQ9D6T371T"
-  };
+import { 
+  collection, 
+  addDoc 
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+const auth = window.firebaseAuth;
+const db = window.firebaseDB;
 
-  console.log("🔥 Firebase conectado:", app.name);
+// ======= REGISTRO =======
+const registerForm = document.getElementById("register-form");
+if (registerForm) {
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("register-username").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
 
-  // === REGISTRO DE USUARIO ===
-  const registerForm = document.getElementById("register-form");
-  if (registerForm) {
-    registerForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      await addDoc(collection(db, "usuarios"), { username, email });
+      alert("✅ Registro exitoso");
+      window.location.href = "index.html";
+    } catch (error) {
+      alert("❌ Error: " + error.message);
+    }
+  });
+}
 
-      const username = document.getElementById("register-username").value;
-      const email = document.getElementById("register-email").value;
-      const password = document.getElementById("register-password").value;
+// ======= LOGIN =======
+const loginForm = document.getElementById("login-form");
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
 
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = "dashboard.html";
+    } catch (error) {
+      alert("❌ Error al iniciar sesión: " + error.message);
+    }
+  });
+}
 
-        // Guardamos datos del usuario en Firestore
-        await setDoc(doc(db, "usuarios", user.uid), {
-          username,
-          email,
-          createdAt: new Date().toISOString()
-        });
-
-        alert("✅ Registro exitoso. ¡Bienvenido!");
-        window.location.href = "index.html";
-      } catch (error) {
-        alert("❌ Error al registrarse: " + error.message);
-      }
-    });
-  }
-
-  // === LOGIN ===
-  const loginForm = document.getElementById("login-form");
-  if
-
-
+// ======= LOGOUT =======
+const logoutBtn = document.getElementById("logout-btn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "index.html";
+  });
+}
 
 
 
