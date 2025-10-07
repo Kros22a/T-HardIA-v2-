@@ -1,33 +1,55 @@
-<!-- Firebase SDK y configuración -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } 
-    from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import { getFirestore, collection, addDoc } 
-    from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — Iniciar sesión</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page">
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
-    authDomain: "t-hardia.firebaseapp.com",
-    projectId: "t-hardia",
-    storageBucket: "t-hardia.firebasestorage.app",
-    messagingSenderId: "462770565143",
-    appId: "1:462770565143:web:d6de124051899b9c742c52",
-    measurementId: "G-YQ9D6T371T"
-  };
+  <header class="site-header">
+    <div class="logo">T-HardIA</div>
+    <nav class="nav">
+      <a href="index.html" class="active">Iniciar</a>
+      <a href="register.html">Registro</a>
+      <a href="blog.html">Blog</a>
+      <a href="compare.html">Comparar</a>
+      <a href="contact.html">Contacto</a>
+    </nav>
+  </header>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  <main class="center-card">
+    <section class="card">
+      <h1>Inicia sesión</h1>
+      <form id="login-form" class="form">
+        <label for="login-email">Correo</label>
+        <input id="login-email" type="email" placeholder="tu@ejemplo.com" required />
+        <label for="login-password">Contraseña</label>
+        <input id="login-password" type="password" placeholder="Contraseña" required />
+        <button type="submit" class="btn">Entrar</button>
+      </form>
+      <p class="muted">¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+    </section>
+  </main>
 
-  // Hacemos que Firebase esté disponible globalmente
-  window.firebaseAuth = auth;
-  window.firebaseDB = db;
-  window.firebaseApp = app;
-</script>
+  <!-- Firebase compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-<!-- Tu lógica de la app -->
-<script type="module" src="./script.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const res = await window.appSignIn(email,password);
+      if (!res.success) alert('Error: ' + res.error);
+    });
+  </script>
+</body>
+</html>
 
 
 
