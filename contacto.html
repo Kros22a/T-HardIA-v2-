@@ -1,102 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto - T-HardIA</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-
-    // Configuración Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
-      authDomain: "t-hardia.firebaseapp.com",
-      projectId: "t-hardia",
-      storageBucket: "t-hardia.firebasestorage.app",
-      messagingSenderId: "462770565143",
-      appId: "1:462770565143:web:d6de124051899b9c742c52",
-      measurementId: "G-YQ9D6T371T"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Guardamos referencia global para script.js
-    window.firebaseApp = app;
-    window.firebaseDB = db;
-  </script>
-
-  <script defer type="module" src="script.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — Contacto</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <!-- ======= HEADER ======= -->
-  <header>
+<body class="page">
+  <header class="site-header">
     <div class="logo">T-HardIA</div>
-
-    <!-- Menú de escritorio -->
-    <nav class="desktop-menu">
-      <a href="dashboard.html">Inicio</a>
-      <a href="hardware.html">Hardware</a>
-      <a href="curiosidades.html">Curiosidades</a>
-      <a href="contacto.html" class="active">Contacto</a>
-      <button id="logout-btn" class="logout-btn">Cerrar sesión</button>
-    </nav>
-
-    <!-- Menú móvil -->
-    <div class="hamburger" id="hamburger">☰</div>
-    <nav class="mobile-menu" id="mobile-menu">
-      <a href="dashboard.html">Inicio</a>
-      <a href="hardware.html">Hardware</a>
-      <a href="curiosidades.html">Curiosidades</a>
-      <a href="contacto.html" class="active">Contacto</a>
-      <button id="logout-btn-mobile" class="logout-btn">Cerrar sesión</button>
+    <nav class="nav">
+      <a href="index.html">Iniciar</a>
+      <a href="register.html">Registro</a>
+      <a href="blog.html">Blog</a>
+      <a href="compare.html">Comparar</a>
+      <a href="contact.html" class="active">Contacto</a>
     </nav>
   </header>
 
-  <!-- ======= MAIN ======= -->
-  <main class="fade-in">
-    <h1>Contacto</h1>
-    <p class="intro">¿Tienes dudas, sugerencias o quieres colaborar con nosotros?  
-    Completa el formulario o contáctanos directamente en nuestras redes.</p>
-
-    <!-- FORMULARIO -->
+  <main class="center-card">
     <section class="card">
-      <h2>📩 Formulario de Encuesta</h2>
-      <p>Tu opinión nos ayuda a crecer. Responde estas preguntas:</p>
+      <h1>Contacto / Encuesta</h1>
+      <form id="contact-form" class="form">
+        <label>Nombre</label>
+        <input id="nombre" required />
+        <label>Correo</label>
+        <input id="email" type="email" required />
+        <label>¿Qué opinas del diseño?</label>
+        <textarea id="opinion" rows="3"></textarea>
+        <label>¿Qué contenido te gustaría ver?</label>
+        <textarea id="contenido" rows="3"></textarea>
+        <label>Componente de interés</label>
+        <input id="hardware" />
+        <label>Satisfacción</label>
+        <select id="satisfaccion"><option value="">Selecciona...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+        <label>¿Recomendarías?</label>
+        <select id="recomendacion"><option value="">Selecciona...</option><option>si</option><option>talvez</option><option>no</option></select>
 
-      <form id="contact-form">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        <button type="submit" class="btn">Enviar</button>
+        <p id="contact-msg" class="muted" style="margin-top:10px"></p>
+      </form>
+    </section>
+  </main>
 
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-        <label for="opinion">¿Qué opinas del diseño visual de nuestra página?</label>
-        <textarea id="opinion" name="opinion" rows="4" placeholder="Escribe tu opinión..." required></textarea>
-
-        <label for="contenido">¿Qué tipo de contenido te gustaría ver más en nuestra web?</label>
-        <textarea id="contenido" name="contenido" rows="4" placeholder="Ejemplo: más comparativas de procesadores..." required></textarea>
-
-        <label for="hardware">¿Qué componente de hardware te interesa más aprender a fondo?</label>
-        <textarea id="hardware" name="hardware" rows="4" placeholder="Ejemplo: Tarjetas gráficas" required></textarea>
-
-        <label for="satisfaccion">En una escala del 1 al 5, ¿qué tan feliz estás con nuestro servicio?</label>
-        <select id="satisfaccion" name="satisfaccion" required>
-          <option value="">Selecciona...</option>
-          <option value="1">1 - Muy insatisfecho</option>
-          <option value="2">2 - Insatisfecho</option>
-          <option value="3">3 - Neutral</option>
-          <option value="4">4 - Feliz</option>
-          <option value="5">5 - Muy feliz</option>
-        </select>
-
-        <label for="recomendacion">¿Recomendarías nuestra página a tus amigos?</label>
-        <select id="recomendacion" name="recomendacion" required>
-          <option value="">Selecciona...</option>
-          <option value="si">Sí</option>
-          <option value="talvez">Tal vez</option>
-          <option value="no">N
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const data = {
+        nombre: document.getElementById('nombre').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        opinion: document.getElementById('opinion').value.trim(),
+        contenido: document.getElementById('contenido').value.trim(),
+        hardware: document.getElementById('hardware').value.trim(),
+        satisfaccion: document.getElementById('satisfaccion').value,
+        recomendacion: document.getElementById('recomendacion').value,
+        uid: (window.appCurrentUser() || {}).uid || null
+      };
+      const res = await window.appSaveContact(data);
+      const msg = document.getElementById('contact-msg');
+      if (res.success) { msg.textContent = '✅ Enviado correctamente.'; e.target.reset(); } 
+      else { msg.textContent = '❌ Error: ' + res.error; }
+    });
+  </script>
+</body>
+</html>
