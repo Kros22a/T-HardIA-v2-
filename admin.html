@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — Admin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page">
+  <header class="site-header">
+    <div class="logo">T-HardIA</div>
+    <nav class="nav">
+      <a href="dashboard.html">Inicio</a>
+      <a href="admin.html" class="active">Admin</a>
+      <a href="blog.html">Blog</a>
+      <a href="compare.html">Comparar</a>
+    </nav>
+    <button id="logout-btn" class="btn">Cerrar sesión</button>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1>Panel Admin</h1>
+      <p class="muted">Solo accesible para usuarios con rol <strong>admin</strong>.</p>
+
+      <div style="margin-top:12px">
+        <button id="btn-users" class="btn">Ver Usuarios</button>
+        <button id="btn-contacts" class="btn" style="margin-left:8px">Ver Formularios</button>
+        <button id="btn-comps" class="btn" style="margin-left:8px">Ver Comparaciones</button>
+      </div>
+
+      <div id="admin-output" style="margin-top:16px"></div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script src="app.js"></script>
+  <script>
+    // Proteger: solo admin
+    async function isAdmin() {
+      const u = window.appCurrentUser();
+      if (!u) {
+        // esperar auth
+        return new Promise(resolve => {
+          firebase.auth().onAuthStateChanged(async (user) => {
+            if (!user) { window.location.href = 'index.html'; resolve(false); return; }
+            const doc = await window.appDB.collection('usuarios').doc(user.uid).get();
+            const role = doc.exists? doc.data().role : null;
+            if (role !== 'admin') { alert('Acceso denegado.'); window.location.href='dashboard.html'; resolve(false); return; }
+            resolve(true);
+          });
+        });
+      } else {
+        const doc = await window.appDB.collection('usuarios').doc(u.uid).get();
+        const role = doc.exists? doc.data().role : null;
+        if (role !== 'admin') { alert('Acceso denegado.'); window.location.href='dashboard.html'; return false; }
+        return true;
+      }
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', ()=>window.appSignOut());
+
+    (async ()=>{
+      const ok = await isAdmin();
+      if (!ok) return;
+
+      const out = document.getElementById('admin-output');
+      const btnUsers = document.getElementById('btn-users');
+      const btnContacts = document.getElementById('btn-contacts');
+      const btnComps = document.getElementById('btn-comps');
+
+      btnUsers.addEventListener('click', async ()=>{
+        out.innerHTML = '<p class="muted">Cargando usuarios...</p>';
+        const rows = await window.appFetchUsers();
+        if (!rows.length) { out.innerHTML = '<p class="muted">No hay usuarios.</p>'; return; }
+        let html = '<table class="table"><thead><tr><th>UID</th><th>Usuario</th><th>Email</th><th>Role</th><th>Acciones</th></tr></thead><tbody>';
+        rows.forEach(r=>{
+          html += `<tr><td>${r.id}</td><td>${r.username||''}</td><td>${r.email||''}</td><td>${r.role||'user'}</td><td><button data-uid="${r.id}" class="btn set-admin">Hacer admin</button></td></tr>`;
+        });
+        html += '</tbody></table>';
+        out.innerHTML = html;
+        document.querySelectorAll('.set-admin').forEach(btn=>{
+          btn.addEventListener('click', async (e)=>{
+            const uid = e.target.dataset.uid;
+            if (!confirm('¿Dar rol admin a este usuario?')) return;
+            const res = await window.appSetUserRole(uid,'admin');
+            if (res.success) alert('Rol actualizado.'); else alert('Error: '+res.error);
+          });
+        });
+      });
+
+      btnContacts.addEventListener('click', async ()=>{
+        out.innerHTML = '<p class="muted">Cargando formularios...</p>';
+        const rows = await window.appFetchContacts();
+        if (!rows.length) { out.innerHTML = '<p class="muted">No hay formularios.</p>'; return; }
+        let html = '<table class="table"><thead><tr><th>ID</th><th>Nombre</th><th>Email</th><th>Hardware</th><th>Satisfacción</th><th>Fecha</th></tr></thead><tbody>';
+        rows.forEach(r=>{
+          const d = r.created_at && r.created_at.toDate ? r.created_at.toDate().toLocaleString() : (r.created_at || '');
+          html += `<tr><td>${r.id}</td><td>${r.nombre||''}</td><td>${r.email||''}</td><td>${r.hardware||''}</td><td>${r.satisfaccion||''}</td><td>${d}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        out.innerHTML = html;
+      });
+
+      btnComps.addEventListener('click', async ()=>{
+        out.innerHTML = '<p class="muted">Cargando comparaciones...</p>';
+        const rows = await window.appFetchComparisons();
+        if (!rows.length) { out.innerHTML = '<p class="muted">No hay comparaciones guardadas.</p>'; return; }
+        let html = '<table class="table"><thead><tr><th>ID</th><th>Usuario</th><th>A</th><th>B</th><th>Fecha</th></tr></thead><tbody>';
+        rows.forEach(r=>{
+          const d = r.created_at && r.created_at.toDate ? r.created_at.toDate().toLocaleString() : (r.created_at || '');
+          html += `<tr><td>${r.id}</td><td>${r.user||''}</td><td>${r.a||''}</td><td>${r.b||''}</td><td>${d}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        out.innerHTML = html;
+      });
+
+    })();
+  </script>
+</body>
+</html>
