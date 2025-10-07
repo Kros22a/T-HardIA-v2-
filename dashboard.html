@@ -1,87 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>T-HardIA - Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>T-HardIA — Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="dashboard-body">
-  <header>
-    <div class="logo">TH</div>
-    <nav class="desktop-menu">
-      <a href="dashboard.html">Inicio</a>
-      <a href="hardware.html">Hardware</a>
-      <a href="curiosidades.html">Curiosidades</a>
-      <a href="contacto.html">Contacto</a>
-      <button id="logout-btn" class="logout-btn">Cerrar sesión</button>
-    </nav>
-    <div class="hamburger" id="hamburger">&#9776;</div>
-    <nav class="mobile-menu" id="mobile-menu">
-      <a href="dashboard.html">Inicio</a>
-      <a href="hardware.html">Hardware</a>
-      <a href="curiosidades.html">Curiosidades</a>
-      <a href="contacto.html">Contacto</a>
-      <button id="logout-btn-mobile" class="logout-btn">Cerrar sesión</button>
+<body class="page">
+  <header class="site-header">
+    <div class="logo">T-HardIA</div>
+    <nav class="nav">
+      <a href="dashboard.html" class="active">Inicio</a>
+      <a href="blog.html">Blog</a>
+      <a href="compare.html">Comparar</a>
+      <a href="contact.html">Contacto</a>
+      <a href="admin.html">Admin</a>
+      <button id="logout-btn" class="btn" style="margin-left:12px">Cerrar sesión</button>
     </nav>
   </header>
 
-  <main class="fade-in">
-    <h1>Bienvenido, <span id="username"></span> 🚀</h1>
-    <p class="intro">Explora el conocimiento sobre hardware y tecnología en T-HardIA.</p>
+  <main class="container">
+    <section class="hero-card card">
+      <h1>Bienvenido, <span id="username">Usuario</span></h1>
+      <p class="muted">Accede a tus herramientas y artículos.</p>
+    </section>
+
+    <section class="grid-tiles">
+      <a class="tile" href="compare.html"><h3>Comparador</h3><p>Compara CPUs, GPUs, RAM y más.</p></a>
+      <a class="tile" href="blog.html"><h3>Blog</h3><p>Lecturas técnicas y guías.</p></a>
+      <a class="tile" href="contact.html"><h3>Contacto</h3><p>Envíanos feedback.</p></a>
+    </section>
   </main>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyClzzRrxUOTwd_dfOBE6dVv3V1G6xrTXuE",
-      authDomain: "t-hardia.firebaseapp.com",
-      projectId: "t-hardia",
-      storageBucket: "t-hardia.firebasestorage.app",
-      messagingSenderId: "462770565143",
-      appId: "1:462770565143:web:d6de124051899b9c742c52",
-      measurementId: "G-YQ9D6T371T"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Exponemos las variables globalmente para script.js
-    window.firebaseApp = app;
-    window.firebaseAuth = auth;
-    window.firebaseDB = db;
-  </script>
-
-  <script src="script.js" type="module"></script>
-
-  <!-- Widget Voiceflow -->
-  <script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68c0d1160c5887433f0bb303' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
-      v.type = "text/javascript"; 
-      s.parentNode.insertBefore(v, s);
-  })(document, 'script');
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener('load', async () => {
+      // proteger ruta
+      window.appProtectRoute();
+      // mostrar nombre
+      // small delay to allow auth to initialize
+      firebase.auth().onAuthStateChanged(async (u) => {
+        if (u) {
+          await window.appLoadUserName();
+        }
+      });
+      document.getElementById('logout-btn').addEventListener('click', ()=>window.appSignOut());
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
